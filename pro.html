@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input id="product" type="text">
+    <input id="quenditi" type="text">
+    <button onclick="addprodut()">Set item</button>
+    <ul id="add-pro">
+        
+    </ul>
+
+    <script>
+        const addprodut = () =>{
+            const productID = document.getElementById('product')
+            const quenditID = document.getElementById('quenditi')
+            const productValue = productID.value;
+            const quenditiValue = quenditID.value;
+            productID.value='';
+            quenditID.value='';
+            appendChildAdd(productValue,quenditiValue)
+            saveProductTolocalStoroage(productValue,quenditiValue)
+        }
+
+        const appendChildAdd = (product,quenditi) => {
+            const showText = document.getElementById('add-pro')
+            const li = document.createElement('li')
+            li.innerHTML = `
+            <p>product:${product} <br> quenditi:${quenditi}</p>
+            `
+            showText.appendChild(li)
+        }
+
+        const getStorShopingCart = () => {
+            let cart = {}
+            const storCart = localStorage.getItem('cart')
+            if(storCart){
+                cart = JSON.parse(storCart)
+            }
+            return cart;
+        }
+
+        const saveProductTolocalStoroage = (product,quenditi) => {
+            const cart = getStorShopingCart()
+            cart[product] = quenditi;
+            const stringlify = JSON.stringify(cart)
+            localStorage.setItem('cart',stringlify)
+        }
+        
+        const displayProductForlocalStorag = () => {
+            const saveCart = getStorShopingCart()
+            for(let obj in saveCart){
+                const quenditi = saveCart[obj]
+                console.log(obj,quenditi)
+            appendChildAdd(obj,quenditi)
+
+            }
+        }
+        displayProductForlocalStorag()
+    </script>
+</body>
+</html>
