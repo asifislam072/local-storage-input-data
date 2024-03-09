@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title >Document</title>
+</head>
+<body>
+    <input id="mal-name" type="text">
+    <input id="mal-number" type="text">
+    <button onclick="addpro()">set ite</button>
+    <ul id="add-pro"></ul>
+       
+    <script>
+         const malName = document.getElementById('mal-name')
+        const malNumer = document.getElementById('mal-number')
+        const addpro = () =>{
+            const malNameValue = malName.value;
+            const malNumerValue = malNumer.value;
+            malName.value = ''
+            malNumer.value=''
+            // console.log(malNameValue,malNumerValue)
+            showProduct(malName,malNumer)
+
+            saveProductTolocalStoroage(malName,malNumer)
+        }
+        
+        const showProduct = (mal,pro) =>{
+           const showid = document.getElementById('add-pro')
+           const li = document.createElement('li')
+           
+        //    li.innerHTML = `
+        //    <p>product name:${mal} <br> product Number:${pro}</p>
+        //    `;
+        li.innerHTML = 'peoduct' + ' ' + pro + '<br>' + 'mal' + ' ' + mal
+           showid.appendChild(li)
+
+
+        }
+
+
+        const getItemShoppinCard = () => {
+            let card = {}
+            const storaecard = localStorage.getItem('card')
+            if(storaecard){
+               card = JSON.parse(storaecard)
+            }
+            return card;
+        }
+
+        const saveProductTolocalStoroage = (produt,qundity) => {
+            const card = getItemShoppinCard()
+            card[produt] = qundity
+            console.log('as',card)
+        }
+        
+    </script>
+
+</body>
+</html>
